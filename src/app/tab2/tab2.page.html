@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Přidat recept
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label position="floating">nazev</ion-label>
+      <ion-input [(ngModel)]="nazev" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Popisek</ion-label>
+      <ion-input [(ngModel)]="popisek" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">postup</ion-label>
+      <ion-textarea [(ngModel)]="postup" type="text" rows="20" cols="20"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">ingredience</ion-label>
+      <ion-textarea [(ngModel)]="ingredience" type="text" rows="10" cols="10"></ion-textarea>
+
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">hlobrazek</ion-label>
+      <ion-input [(ngModel)]="hlavniObrazek" type="file"></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="button" (click)="addRecept()" shape="block" expand="block">Add Recept</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

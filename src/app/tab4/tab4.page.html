@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-avatar class="ion-margin">
+    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" alt="avatar">
+  </ion-avatar>
+  <h1 class="ion-text-center">Jméno Příjmení</h1>
+  <p class="ion-text-center pismo ion-no-margin ion-margin-bottom">email@seznam.cz</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary" shape="round"[routerLink]="['/editprofile/']" >Upravit profil</ion-button>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr>
+  <ion-list>
+    <ion-list-header>
+      Moje recepty
+    </ion-list-header>
+    <ion-item lines="inset" *ngFor="let recept of recepty">
+      <ion-label>
+        <h5>{{recept.id}}. {{recept.nazev}}</h5>
+      </ion-label>
+      <div class="item-note">
+        <ion-icon name="create" style="zoom: 2.0;" [routerLink]="['/update-recept/', recept.id]"></ion-icon>
+        <ion-icon name="trash" style="zoom: 2.0;" (click)="deleteRecept(recept.id)"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

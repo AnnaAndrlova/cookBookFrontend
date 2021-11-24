@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Recepty
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let recept of recepty" [routerLink]="['/detailpage/', recept.id]" class="ion-padding">
+    <img
+      src="https://images.unsplash.com/photo-1618902515708-0972a312344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVuf
+      DB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      alt="jidlo" class="rounded ion-margin-bottom">
+    <!--<img
+      src="{{recipe.image}}" alt="jidlo">-->
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card-title class="name">{{recept.nazev}}</ion-card-title>
+            <!--<span class="title">{{recept.popisek}}</span>-->
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div>
+            <ion-icon name="heart-outline" class="icon" size="large"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

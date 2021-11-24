@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Upravit recept</ion-title>
+    <ion-back-button defaultHref="/tabs/tab4" text="zpět" color="primary" class="ion-float-left"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list lines="full">
+  <ion-item>
+    <ion-label position="floating">nazev</ion-label>
+    <ion-input [(ngModel)]="nazev" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Popisek</ion-label>
+    <ion-input [(ngModel)]="popisek" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">postup</ion-label>
+    <ion-textarea [(ngModel)]="postup" type="text" rows="20" cols="20"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">ingredience</ion-label>
+    <ion-textarea [(ngModel)]="ingredience" type="text" rows="10" cols="10"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">hlobrazek</ion-label>
+    <ion-input [(ngModel)]="hlavniObrazek" type="file"></ion-input>
+  </ion-item>
+  <ion-row>
+    <ion-col>
+      <ion-button type="button" (click)="updateRecept()" shape="block" expand="block">Upravit Recept</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-list>
+
+
+
+
+</ion-content>

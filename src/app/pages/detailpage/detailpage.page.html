@@ -1,0 +1,38 @@
+<ion-content class="ion-padding-top">
+  <ion-back-button defaultHref="/tabs/tab1" text="" color="light" class="ion-float-left paddingl"></ion-back-button>
+  <ion-icon name="heart-outline" class="ion-float-right paddingr" color="light"></ion-icon>
+  <div id="content-fit"> <!-- Je zde kvůli přechodu barev, aby nevnikal bug -->
+    <img class="picture"
+         src="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29mZmVlfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+         alt="jídlo">
+    <div class="pozice">
+      <div class="description ion-padding">
+        <h1 class="name ion-padding-start">{{nazev}}</h1>
+        <span class="title ion-padding-start">{{popisek}}</span>
+        <ion-segment (ionChange)="segmentChanged($event)" [value]="showData" class="ion-padding">
+          <ion-segment-button value="description">
+            <ion-label>Postup</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="ingredients">
+            <ion-label>Ingredience</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="pictures">
+            <ion-label>Obrázky</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <div *ngIf="showData === 'description'">
+          <p class="ion-padding-start ion-padding-end descriptiondetail">{{postup}}
+          </p>
+        </div>
+        <div *ngIf="showData === 'ingredients'">
+          <p class="ion-padding-start ion-padding-end descriptiondetail">{{ingredience}}</p>
+        </div>
+        <div *ngIf="showData === 'pictures'">
+          <p>{{obrazky}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+

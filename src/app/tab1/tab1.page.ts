@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ApiService} from "../api.service";
+import {ApiService} from '../api.service';
 
 
 @Component({
@@ -23,12 +23,13 @@ export class Tab1Page {
 
 
   getRecepty(){
-    this._apiService.getRecepty().subscribe((res:any) => {
-      console.log("SUCCESS ===", res);
+    // eslint-disable-next-line no-underscore-dangle
+    this._apiService.getRecepty().subscribe((res: any) => {
+      console.log('SUCCESS ===', res);
       this.recepty = res;
-    }, (error:any) =>{
-      console.log("ERROR ===", error);
-    })
+    }, (error: any) =>{
+      console.log('ERROR ===', error);
+    });
   }
 
 }

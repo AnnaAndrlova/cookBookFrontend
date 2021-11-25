@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ApiService} from "../../api.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ApiService} from '../../api.service';
 
 @Component({
   selector: 'app-detailpage',
@@ -8,6 +8,7 @@ import {ApiService} from "../../api.service";
   styleUrls: ['./detailpage.page.scss'],
 })
 export class DetailpagePage implements OnInit {
+  recept: any;
   id: any;
   nazev: any;
   popisek: any;
@@ -16,31 +17,32 @@ export class DetailpagePage implements OnInit {
   obrazky: any;
   hlavniObrazek: any;
   showData = 'description';
-  constructor(private route:ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private router: Router,
               private _apiService: ApiService,) {
-    this.route.params.subscribe((param:any) => {
+    this.route.params.subscribe((param: any) => {
       this.id = param.id;
       console.log(this.id);
       this.getRecept(this.id);
-    })
+    });
   }
 
   ngOnInit() {
   }
   getRecept(id){
-    this._apiService.getRecept(id).subscribe((res:any) => {
-      console.log("SUCCESS", res);
-      let recept = res[0];
+    // eslint-disable-next-line no-underscore-dangle
+    this._apiService.getRecept(id).subscribe((res: any) => {
+      console.log('SUCCESS', res);
+      const recept = res[0];
       this.nazev = recept.nazev;
       this.popisek = recept.popisek;
       this.postup = recept.postup;
       this.ingredience= recept.ingredience;
       this.obrazky= recept.obrazky;
       this.hlavniObrazek= recept.hlavniObrazek;
-    }, (error:any) =>{
-      console.log("ERROR", error);
-    })
+    }, (error: any) =>{
+      console.log('ERROR', error);
+    });
   }
   segmentChanged(event: any) {
     this.showData = event.detail.value;

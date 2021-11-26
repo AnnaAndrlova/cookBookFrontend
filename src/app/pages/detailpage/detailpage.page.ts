@@ -16,6 +16,7 @@ export class DetailpagePage implements OnInit {
   ingredience: any;
   obrazky: any;
   hlavniObrazek: any;
+  autorid: any;
   showData = 'description';
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -40,6 +41,7 @@ export class DetailpagePage implements OnInit {
       this.ingredience= recept.ingredience;
       this.obrazky= recept.obrazky;
       this.hlavniObrazek= recept.hlavniObrazek;
+      this.autorid = recept.autorid;
     }, (error: any) =>{
       console.log('ERROR', error);
     });

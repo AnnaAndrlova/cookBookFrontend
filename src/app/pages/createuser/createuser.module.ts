@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { CreateuserPageRoutingModule } from './createuser-routing.module';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateuserPage } from './createuser.page';
 
 @NgModule({
@@ -13,7 +12,8 @@ import { CreateuserPage } from './createuser.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateuserPageRoutingModule
+    CreateuserPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [CreateuserPage]
 })

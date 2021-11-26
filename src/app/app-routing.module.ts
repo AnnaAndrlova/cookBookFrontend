@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'update-recept/:id',
-    loadChildren: () => import('./update-recept/update-recept.module').then( m => m.UpdateReceptPageModule)
+    loadChildren: () => import('./pages/update-recept/update-recept.module').then(m => m.UpdateReceptPageModule)
   },
   {
     path: 'detailpage/:id',

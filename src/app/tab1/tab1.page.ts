@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {ApiService} from '../api.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -15,9 +16,12 @@ export class Tab1Page {
   obrazky: any;
   hlavniObrazek: any;
   recepty: any = [];
+  autorid = null;
+  iduser: any;
 
 
-  constructor( public _apiService: ApiService) {
+  constructor( public _apiService: ApiService,private route: ActivatedRoute,
+               private router: Router) {
     this.getRecepty();
   }
 

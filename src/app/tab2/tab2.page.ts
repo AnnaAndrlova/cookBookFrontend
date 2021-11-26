@@ -15,6 +15,7 @@ export class Tab2Page {
   ingredience: any;
   hlavniObrazek: any;
   recepty: any = [];
+  autorid = null;
   constructor(public _apiService: ApiService) {
     this.getRecepty();
   }
@@ -25,6 +26,7 @@ export class Tab2Page {
       postup: this.postup,
       ingredience: this.ingredience,
       hlavniObrazek: this.hlavniObrazek,
+      autorid: this.autorid
       //hlavniObrazek: null,
     };
     // eslint-disable-next-line no-underscore-dangle
@@ -35,6 +37,7 @@ export class Tab2Page {
       this.postup = '';
       this.ingredience= '';
       this.hlavniObrazek= '';
+      this.autorid = '';
       alert('SUCCESS');
       this.getRecepty();
     }, (error: any) =>{

@@ -43,6 +43,6 @@ export class ApiService {
     return this.http.put('http://localhost/php/kucharkav2/backend/updateRecept.php?id='+id, data);
   }
   updateUser(id, data){
-    return this.http.put('http://localhost/php/kucharkav2/backend/pages/updateUser.php?id='+id, data);
+    return this.http.put('http://localhost/php/kucharkav2/backend/user/updateUser.php?id='+id, data);
   }
 }

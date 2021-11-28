@@ -8,6 +8,7 @@ import {ApiService} from '../../api.service';
   styleUrls: ['./detailpage.page.scss'],
 })
 export class DetailpagePage implements OnInit {
+  heart = false;
   recept: any;
   id: any;
   nazev: any;
@@ -50,4 +51,12 @@ export class DetailpagePage implements OnInit {
     this.showData = event.detail.value;
   }
 
+  addFavouriteRecept() {
+    if(this.heart === false) {
+      this.heart = true;
+    }
+    else{
+      this.heart = false;
+    }
+  }
 }

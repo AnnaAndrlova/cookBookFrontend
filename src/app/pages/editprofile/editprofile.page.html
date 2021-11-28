@@ -5,24 +5,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-avatar class="ion-margin">
 
     <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" alt="avatar">
 
   </ion-avatar>
   <p class="ion-text-center zmena" >Změnit profilovou fotku</p>
-  <h1 class="ion-text-center">Jméno Příjmení</h1>
-  <p class="ion-text-center pismo ion-no-margin ion-margin-bottom">email@seznam.cz</p>
+  <h1 class="ion-text-center">{{jmeno}} {{prijmeni}}</h1>
+  <p class="ion-text-center pismo ion-no-margin ion-margin-bottom">{{email}}</p>
   <ion-list lines="full">
     <ion-item>
       <ion-label position="floating">Jméno</ion-label>
-      <ion-input  type="text"></ion-input>
+      <ion-input  [(ngModel)]="jmeno" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Příjmení</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input [(ngModel)]="prijmeni" type="text"></ion-input>
     </ion-item>
   </ion-list>
-
+  <ion-button type="button" (click)="updateUser()" shape="block" expand="block">Uložit změny</ion-button>
 </ion-content>

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../api.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {IdServiceService} from '../id-service.service';
+import {Storage} from '@capacitor/storage';
+
 
 @Component({
   selector: 'app-tab4',
@@ -8,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit {
-  iduser: any;
+  id: any;
   autorid: any;
   nazev: any;
   popisek: any;
@@ -20,42 +23,30 @@ export class Tab4Page implements OnInit {
   jmeno: any;
   prijmeni: any;
   email: any;
-  constructor(public _apiService: ApiService,private route: ActivatedRoute,
-              private router: Router) {this.getRecepty();
-    this.route.params.subscribe((param: any) => {
-    this.iduser = param.id;
-    console.log(this.iduser);
-    //this.getUser(this.iduser);
-  }); }
 
-  getRecepty(){
-    // eslint-disable-next-line no-underscore-dangle
-    this._apiService.getRecepty().subscribe((res: any) => {
-      console.log('SUCCESS ===', res);
-      this.recepty = res;
-    }, (error: any) =>{
-      console.log('ERROR ===', error);
-    });
-  }
+  constructor(public _apiService: ApiService, private route: ActivatedRoute, private idService: IdServiceService,
+              private router: Router) {this.getUserRecepty(this.autorid);this.getUser(this.id);}
   deleteRecept(id) {
     // eslint-disable-next-line no-underscore-dangle
     this._apiService.deleteRecept(id).subscribe((res: any) => {
       console.log('SUCCESS');
-      this.getRecepty();
+      this.getUserRecepty(this.autorid);
     }, (err: any) =>{
       console.log('ERROR');
     });
   }
 
-  getUser(id){
+  async getUser(id) {
+    const {value} = await Storage.get({key: 'id'});
+    this.id = value;
     // eslint-disable-next-line no-underscore-dangle
-    this._apiService.getUser(id).subscribe((res: any) => {
+    this._apiService.getUser(this.id).subscribe((res: any) => {
       console.log('SUCCESS', res);
       const user = res[0];
       this.jmeno = user.jmeno;
-      this.prijmeni= user.prijmeni;
-      this.email= user.email;
-    }, (error: any) =>{
+      this.prijmeni = user.prijmeni;
+      this.email = user.email;
+    }, (error: any) => {
       console.log('ERROR', error);
     });
   }
@@ -63,4 +54,18 @@ export class Tab4Page implements OnInit {
   ngOnInit() {
   }
 
+
+  async getUserRecepty(autorid) {
+    const {value} = await Storage.get({key: 'id'});
+    this.autorid = value;
+    // ziskam si z databaze všechny recepty od uzivatele s id value
+    // eslint-disable-next-line no-underscore-dangle
+    this._apiService.getUserRecepty(this.autorid).subscribe(async (res: any) => {
+      console.log('SUCCESS', res);
+      this.recepty = res;
+    }, (err: any) => {
+      console.log('ERROR', err);
+    });
+
+  }
 }

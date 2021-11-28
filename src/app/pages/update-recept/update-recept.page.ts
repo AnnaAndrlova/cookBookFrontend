@@ -59,7 +59,7 @@ getRecept(id){
     // eslint-disable-next-line no-underscore-dangle
     this._apiService.updateRecept(this.id, data).subscribe((res: any) => {
       console.log('SUCCESS', res);
-      this.router.navigateByUrl('/tabs/tab1');
+      this.router.navigateByUrl('/tabs/tab4');
     }, (err: any) =>{
       console.log('ERROR', err);
     });

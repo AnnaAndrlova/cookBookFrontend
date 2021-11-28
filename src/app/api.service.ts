@@ -36,6 +36,9 @@ export class ApiService {
   getPassword(email){
     return this.http.get('http://localhost/php/kucharkav2/backend/user/getPassword.php?email='+email);
   }
+  getUserRecepty(autorid){
+    return this.http.get('http://localhost/php/kucharkav2/backend/getUserRecepty.php?autorid='+autorid);
+  }
   updateRecept(id, data){
     return this.http.put('http://localhost/php/kucharkav2/backend/updateRecept.php?id='+id, data);
   }

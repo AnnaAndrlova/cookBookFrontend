@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {ApiService} from '../api.service';
-import {FormControl} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import {Storage} from '@capacitor/storage';
 
 @Component({
   selector: 'app-tab2',
@@ -15,43 +14,35 @@ export class Tab2Page {
   ingredience: any;
   hlavniObrazek: any;
   recepty: any = [];
-  autorid = null;
+  autorid: any;
   constructor(public _apiService: ApiService) {
-    this.getRecepty();
   }
-  addRecept(){
+  async addRecept() {
+    const {value} = await Storage.get({key: 'id'});
+    this.autorid = value;
     const data = {
       nazev: this.nazev,
       popisek: this.popisek,
       postup: this.postup,
       ingredience: this.ingredience,
       hlavniObrazek: this.hlavniObrazek,
-      autorid: this.autorid
+      autorid: this.autorid,
+
       //hlavniObrazek: null,
     };
     // eslint-disable-next-line no-underscore-dangle
-    this._apiService.addRecept(data).subscribe((res: any) => {
+    this._apiService.addRecept(data).subscribe(async (res: any) => {
       console.log('SUCCESS ===', res);
       this.nazev = '';
       this.popisek = '';
       this.postup = '';
-      this.ingredience= '';
-      this.hlavniObrazek= '';
+      this.ingredience = '';
+      this.hlavniObrazek = '';
       this.autorid = '';
       alert('SUCCESS');
-      this.getRecepty();
-    }, (error: any) =>{
+    }, (error: any) => {
       alert('ERROR');
 
-      console.log('ERROR ===', error);
-    });
-  }
-  getRecepty(){
-    // eslint-disable-next-line no-underscore-dangle
-    this._apiService.getRecepty().subscribe((res: any) => {
-      console.log('SUCCESS ===', res);
-      this.recepty = res;
-    }, (error: any) =>{
       console.log('ERROR ===', error);
     });
   }

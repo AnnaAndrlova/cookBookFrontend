@@ -68,4 +68,8 @@ export class Tab4Page implements OnInit {
     });
 
   }
+
+  async logout() {
+    await Storage.remove({key: 'id'});
+  }
 }

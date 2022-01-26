@@ -18,6 +18,9 @@ export class ApiService {
   addRecept(data) {
     return this.http.post('http://localhost/php/kucharkav2/backend/create.php',data);
   }
+  addFavouriteRecept(data) {
+    return this.http.post('http://localhost/php/kucharkav2/backend/favourites/createFavourite.php',data);
+  }
   addUser(data) {
     return this.http.post('http://localhost/php/kucharkav2/backend/user/createUser.php',data);
   }
@@ -27,8 +30,14 @@ export class ApiService {
   deleteRecept(id){
     return this.http.delete('http://localhost/php/kucharkav2/backend/delete.php?id='+id);
   }
+  deleteFavouriteRecept(iduserandidrecept){
+    return this.http.delete('http://localhost/php/kucharkav2/backend/favourites/deleteFavourite.php?iduserandidrecept='+iduserandidrecept);
+  }
   getRecept(id){
     return this.http.get('http://localhost/php/kucharkav2/backend/getSingleRecept.php?id='+id);
+  }
+  getFavouriteRecept(recepty){
+    return this.http.get('http://localhost/php/kucharkav2/backend/getFavouriteRecept.php?recepty='+ recepty);
   }
   getUser(id){
     return this.http.get('http://localhost/php/kucharkav2/backend/user/getSingleUser.php?id='+id);
@@ -38,6 +47,9 @@ export class ApiService {
   }
   getUserRecepty(autorid){
     return this.http.get('http://localhost/php/kucharkav2/backend/getUserRecepty.php?autorid='+autorid);
+  }
+  getFavouriteReceptId(iduser){
+    return this.http.get('http://localhost/php/kucharkav2/backend/favourites/getFavourite.php?iduser='+iduser);
   }
   updateRecept(id, data){
     return this.http.put('http://localhost/php/kucharkav2/backend/updateRecept.php?id='+id, data);

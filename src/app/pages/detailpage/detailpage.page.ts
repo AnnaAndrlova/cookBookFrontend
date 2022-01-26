@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../api.service';
+import {Storage} from '@capacitor/storage';
 
 @Component({
   selector: 'app-detailpage',
@@ -8,6 +9,10 @@ import {ApiService} from '../../api.service';
   styleUrls: ['./detailpage.page.scss'],
 })
 export class DetailpagePage implements OnInit {
+  iduserandidrecept: any;
+  i = 0;
+  idrecept: any;
+  iduser: any;
   heart = false;
   recept: any;
   id: any;
@@ -26,6 +31,7 @@ export class DetailpagePage implements OnInit {
       this.id = param.id;
       console.log(this.id);
       this.getRecept(this.id);
+      this.isinfavourite();
     });
   }
 
@@ -50,13 +56,65 @@ export class DetailpagePage implements OnInit {
   segmentChanged(event: any) {
     this.showData = event.detail.value;
   }
+  //tato funkce zbarví srdícko, pokud se recept nachází v oblíbených
+  async isinfavourite() {
+    // získám id uživatele
+    const {value} = await Storage.get({key: 'id'});
+    this.iduser = value;
+    // najdu vsechny id receptu s timto uzivatelem spojeny
+    // eslint-disable-next-line no-underscore-dangle
+    this._apiService.getFavouriteReceptId(this.iduser).subscribe(async (res: any) => {
+      console.log('SUCCESS ===', res);
+      // projdi jedno id po druhém  a podívej se, jestli se alespon s jedním shoduje
+      if(res.length!==0){
+        while(this.i<res.length){
+          if(res[this.i].idrecept===this.id){
+            this.heart = true;
+          }
+          this.i++;
+        }
+      }
+      else{
+        this.heart = false;
+      }
+    }, (error: any) => {
+      console.log('ERROR ===', error);
+    });
+  }
 
-  addFavouriteRecept() {
-    if(this.heart === false) {
+  async addFavouriteRecept() {
+    //je stisknuto tlačítko a srdíčko není zbarvené => zbarvi ho a přidej do databáze - vyřeseno
+    if (this.heart === false) {
+      const {value} = await Storage.get({key: 'id'});
+      this.iduser = value;
       this.heart = true;
-    }
-    else{
+      this.idrecept = this.id;
+      const data = {
+        idrecept: this.idrecept,
+        iduser: this.iduser,
+      };
+      // eslint-disable-next-line no-underscore-dangle
+      this._apiService.addFavouriteRecept(data).subscribe(async (res: any) => {
+        console.log('SUCCESS ===', res);
+        this.idrecept = '';
+        this.iduser = '';
+      }, (error: any) => {
+        console.log('ERROR ===', error);
+      });
+      // pokud je recept již uložen, odstraň ho
+    } else {
       this.heart = false;
+      this.idrecept = this.id;
+      const {value} = await Storage.get({key: 'id'});
+      this.iduser = value;
+      this.iduserandidrecept = [this.iduser,this.idrecept];
+      console.log('Toto je iduser a idrecept', this.iduserandidrecept);
+      // eslint-disable-next-line no-underscore-dangle
+      this._apiService.deleteFavouriteRecept(this.iduserandidrecept).subscribe((res: any) => {
+        console.log('SUCCESS', res);
+      }, (err: any) =>{
+        console.log('ERROR', err);
+      });
     }
   }
 }

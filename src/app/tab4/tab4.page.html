@@ -25,9 +25,9 @@
     <ion-list-header>
       Moje recepty
     </ion-list-header>
-    <ion-item lines="inset" *ngFor="let recept of recepty">
+    <ion-item lines="inset" *ngFor="let recept of recepty; let i=index">
       <ion-label>
-        <h5>{{recept.id}}. {{recept.nazev}}</h5>
+        <h5>{{i+1}}. {{recept.nazev}}</h5>
       </ion-label>
       <div class="item-note">
         <ion-icon name="create" style="zoom: 2.0;" [routerLink]="['/update-recept/', recept.id]"></ion-icon>

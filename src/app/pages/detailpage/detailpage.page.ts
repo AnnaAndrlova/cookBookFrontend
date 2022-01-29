@@ -24,6 +24,9 @@ export class DetailpagePage implements OnInit {
   hlavniObrazek: any;
   autorid: any;
   showData = 'description';
+  prijmeni: any;
+  jmeno: any;
+  receptyautora: any;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _apiService: ApiService,) {
@@ -49,6 +52,25 @@ export class DetailpagePage implements OnInit {
       this.obrazky= recept.obrazky;
       this.hlavniObrazek= recept.hlavniObrazek;
       this.autorid = recept.autorid;
+
+      // získám dalsí recepty auora tohoto receptu
+      console.log('toto je id autora : ' + this.autorid);
+      // eslint-disable-next-line no-underscore-dangle
+      this._apiService.getUserRecepty(this.autorid).subscribe(async (res: any) => {
+        console.log('SUCCESS, toto jsou recepty tohoto autora: ', res);
+        this.receptyautora = res;
+      }, (err: any) => {
+        console.log('ERROR', err);
+      });
+      // eslint-disable-next-line no-underscore-dangle
+      this._apiService.getUser(this.autorid).subscribe((rev: any) => {
+        console.log('SUCCESS', rev);
+        const user = rev[0];
+        this.jmeno = user.jmeno;
+        this.prijmeni = user.prijmeni;
+      }, (error: any) => {
+        console.log('ERROR', error);
+      });
     }, (error: any) =>{
       console.log('ERROR', error);
     });

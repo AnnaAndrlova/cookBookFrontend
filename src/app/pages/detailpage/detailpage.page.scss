@@ -2,16 +2,25 @@
   font-size: 17px;
   color: #B7C4CB;
   font-weight: normal;
+  margin-right: 35%;
+  margin-top: 5px;
 }
 .name{
   font-size: 21px;
   color:#50577D;
   margin-bottom: 0;
+  margin-right: 35%;
+  font-weight: normal;
+}
+.info{
+  font-size: 17px;
+  color:#50577D;
   font-weight: normal;
 }
 .picture{
   width: 100%;
   height: auto;
+
   z-index: 2 ;
   margin-top: -65px;
 }

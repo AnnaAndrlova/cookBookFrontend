@@ -12,7 +12,7 @@
     <div class="pozice">
       <div class="description ion-padding">
         <h1 class="name ion-padding-start">{{nazev}}</h1>
-        <span class="title ion-padding-start">{{popisek}}</span>
+        <h2 class="title ion-padding-start">{{popisek}}</h2>
         <ion-segment (ionChange)="segmentChanged($event)" [value]="showData" class="ion-padding">
           <ion-segment-button value="description">
             <ion-label>Postup</ion-label>
@@ -21,18 +21,24 @@
             <ion-label>Ingredience</ion-label>
           </ion-segment-button>
           <ion-segment-button value="pictures">
-            <ion-label>Obrázky</ion-label>
+            <ion-label>Informace</ion-label>
           </ion-segment-button>
         </ion-segment>
         <div *ngIf="showData === 'description'">
-          <p class="ion-padding-start ion-padding-end descriptiondetail">{{postup}}
+          <p class="ion-padding descriptiondetail">{{postup}}
           </p>
         </div>
         <div *ngIf="showData === 'ingredients'">
-          <p class="ion-padding-start ion-padding-end descriptiondetail">{{ingredience}}</p>
+          <p class="ion-padding  descriptiondetail">{{ingredience}}</p>
         </div>
         <div *ngIf="showData === 'pictures'">
-          <p>{{obrazky}}</p>
+          <h3 class="ion-padding info">Autor: {{jmeno}} {{prijmeni}}</h3>
+          <h3 class="ion-padding-horizontal info">Recepty od tohoto autora</h3>
+          <ion-item lines="inset" *ngFor="let recept of receptyautora; let i=index" [routerLink]="['/detailpage/', recept.id]">
+            <ion-label>
+              <h5>{{i+1}}. {{recept.nazev}}</h5>
+            </ion-label>
+          </ion-item>
         </div>
       </div>
     </div>

@@ -7,6 +7,38 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <h6 class="ion-padding-start">Třídit podle druhu</h6>
+  <div class="ion-padding-start">
+    <ion-button (click)="sortby1()" size="small" fill="outline" *ngIf="!clicked1">Snídaně</ion-button>
+    <ion-button (click)="sortby1()" size="small" *ngIf="clicked1">Snídaně</ion-button>
+
+    <ion-button (click)="sortby2()" size="small" fill="outline" *ngIf="!clicked2">Oběd</ion-button>
+    <ion-button (click)="sortby2()" size="small" *ngIf="clicked2">Oběd</ion-button>
+
+    <ion-button (click)="sortby3()" size="small" fill="outline" *ngIf="!clicked3">Večeře</ion-button>
+    <ion-button (click)="sortby3()" size="small" *ngIf="clicked3">Večeře</ion-button>
+
+    <ion-button (click)="sortby4()" size="small" fill="outline" *ngIf="!clicked4">Svačina</ion-button>
+    <ion-button (click)="sortby4()" size="small" *ngIf="clicked4">Svačina</ion-button>
+
+    <ion-button (click)="sortby5()" size="small" fill="outline" *ngIf="!clicked5">Drink</ion-button>
+    <ion-button (click)="sortby5()" size="small" *ngIf="clicked5">Drink</ion-button>
+
+    <ion-button (click)="sortby6()" size="small" fill="outline" *ngIf="!clicked6">Polévka</ion-button>
+    <ion-button (click)="sortby6()" size="small" *ngIf="clicked6">Polévka</ion-button>
+  </div>
+  <h6 class="ion-padding-start">Třídit podle obtížnosti</h6>
+  <div class="ion-padding-start">
+    <ion-button (click)="difficulty1()" size="small" fill="outline" *ngIf="!clickedD1">Lehké</ion-button>
+    <ion-button (click)="difficulty1()" size="small" *ngIf="clickedD1">Lehké</ion-button>
+
+    <ion-button (click)="difficulty2()" size="small" fill="outline" *ngIf="!clickedD2">Střední</ion-button>
+    <ion-button (click)="difficulty2()" size="small" *ngIf="clickedD2">Střední</ion-button>
+
+    <ion-button (click)="difficulty3()" size="small" fill="outline" *ngIf="!clickedD3">Těžké</ion-button>
+    <ion-button (click)="difficulty3()" size="small" *ngIf="clickedD3">Těžké</ion-button>
+  </div>
+
   <ion-card *ngFor="let recept of recepty" [routerLink]="['/detailpage/', recept.id]" class="ion-padding">
     <img
       src="https://images.unsplash.com/photo-1618902515708-0972a312344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVuf
@@ -22,10 +54,9 @@
             <!--<span class="title">{{recept.popisek}}</span>-->
           </div>
         </ion-col>
-        <ion-col size="3">
-          <div>
-            <ion-icon *ngIf="heart" name="heart" class="icon" color="light" size="large"></ion-icon>
-            <ion-icon *ngIf="!heart" name="heart-outline" class="icon" color="dark" size="large"></ion-icon>
+        <ion-col>
+          <div class="ion-text-end">
+            #{{recept.name}}, {{recept.obtiznost}}
           </div>
         </ion-col>
       </ion-row>

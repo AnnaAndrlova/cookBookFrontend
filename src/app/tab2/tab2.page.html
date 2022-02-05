@@ -8,7 +8,19 @@
 
 <ion-content [fullscreen]="true">
   <form (ngSubmit)="addRecept()" [formGroup]="ionicForm" novalidate>
-
+    <ion-item class="ion-padding-top">
+      <ion-label>Kategorie</ion-label>
+      <ion-select interface="popover" [(ngModel)]="kategorie" formControlName="kategorie">
+        <ion-select-option value="1">Snídaně</ion-select-option>
+        <ion-select-option value="2">Oběd</ion-select-option>
+        <ion-select-option value="3">Večeře</ion-select-option>
+        <ion-select-option value="4">Svačina</ion-select-option>
+        <ion-select-option value="5">Drink</ion-select-option>
+        <ion-select-option value="6">Polévka</ion-select-option>
+      </ion-select>
+      <span *ngIf="isSubmitted && errorControl.kategorie.errors?.required" class="error ion-padding">
+    Vyplňte kategorii receptu</span>
+    </ion-item>
     <ion-item>
       <ion-label position="floating">nazev</ion-label>
       <ion-input [(ngModel)]="nazev" type="text" formControlName="nazev"></ion-input>

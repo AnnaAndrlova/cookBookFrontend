@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit {
+  kategorie: any;
   nazev: any;
   popisek: any;
   postup: any;
@@ -26,6 +27,7 @@ export class Tab2Page implements OnInit {
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
+      kategorie: ['', [Validators.required]],
       nazev: ['', [Validators.required]],
       popisek: ['', [Validators.required]],
       postup: ['', [Validators.required]],
@@ -47,6 +49,7 @@ export class Tab2Page implements OnInit {
     } else {
       const {value} = await Storage.get({key: 'id'});
       this.autorid = value;
+      //pak tohle id poslu zpátky a ulozim ho do databaze recepty pod nazev kategorie
       const data = {
         nazev: this.nazev,
         popisek: this.popisek,
@@ -54,6 +57,7 @@ export class Tab2Page implements OnInit {
         ingredience: this.ingredience,
         hlavniObrazek: this.hlavniObrazek,
         autorid: this.autorid,
+        kategorie: this.kategorie,
 
         //hlavniObrazek: null,
       };
@@ -66,6 +70,7 @@ export class Tab2Page implements OnInit {
         this.ingredience = '';
         this.hlavniObrazek = '';
         this.autorid = '';
+        this.kategorie ='';
         this.router.navigateByUrl('/tabs/tab1');
         this.isSubmitted = false;
         alert('SUCCESS');

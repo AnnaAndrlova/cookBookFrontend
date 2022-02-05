@@ -10,6 +10,19 @@ import {Storage} from '@capacitor/storage';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  clicked1 = false;
+  clicked2 = false;
+  clicked3 = false;
+  clicked4 = false;
+  clicked5 = false;
+  clicked6 = false;
+  clickedD2 = false;
+  clickedD1 = false;
+  clickedD3 = false;
+  databaseOrder: any;
+  obtiznost: any;
+  sortby: any;
+  kategorie: any;
   nazev: any;
   popisek: any;
   postup: any;
@@ -25,14 +38,15 @@ export class Tab1Page {
 
 
 
+
   constructor( public _apiService: ApiService,private route: ActivatedRoute,
                private router: Router) {
     this.getRecepty();
-    this.isinfavourite();
   }
 
 
   getRecepty(){
+    //získám všechny recepty
     // eslint-disable-next-line no-underscore-dangle
     this._apiService.getRecepty().subscribe((res: any) => {
       console.log('SUCCESS ===', res);
@@ -41,31 +55,150 @@ export class Tab1Page {
       console.log('ERROR ===', error);
     });
   }
-  async isinfavourite() {
-    // získám id uživatele
-    const {value} = await Storage.get({key: 'id'});
-    this.iduser = value;
-    // najdu vsechny id receptu s timto uzivatelem spojeny
-    // eslint-disable-next-line no-underscore-dangle
-    this._apiService.getFavouriteReceptId(this.iduser).subscribe(async (res: any) => {
-      console.log('SUCCESS ===', res);
-      // projdi jedno id po druhém  a podívej se, jestli se alespon s jedním shoduje
-      if(res.length!==0){
-        while(this.i<res.length){
-          // pokud se idreceptu shoduje se id aktualniho recpetu, pak:TODO jak zjistit id aktualniho rceptu,
-          //  cim nahradit this.recepty.id protoze to nefungujeeee
-          if(res[this.i].idrecept===this.recepty.id){
-            this.heart = true;
-          }
-          this.i++;
-        }
+
+  sortby1() {
+    this.clicked1 = this.clicked1 === false;
+    this.getReceptByCathegory();
+  }sortby2() {
+    this.clicked2 = this.clicked2 === false;
+    this.getReceptByCathegory();
+  }sortby3() {
+    this.clicked3 = this.clicked3 === false;
+    this.getReceptByCathegory();
+  }sortby4() {
+    this.clicked4 = this.clicked4 === false;
+    this.getReceptByCathegory();
+  }sortby5() {
+    this.clicked5 = this.clicked5 === false;
+    this.getReceptByCathegory();
+  }sortby6() {
+    this.clicked6 = this.clicked6 === false;
+    this.getReceptByCathegory();
+  }
+  difficulty1() {
+    this.clickedD1 = this.clickedD1 === false;
+    this.getReceptByCathegory();
+  }
+  difficulty2() {
+    this.clickedD2 = this.clickedD2 === false;
+    this.getReceptByCathegory();
+  }
+  difficulty3() {
+    this.clickedD3 = this.clickedD3 === false;
+    this.getReceptByCathegory();
+  }
+  getReceptByCathegory(){
+    //získám recepty
+    this.databaseOrder= '';
+    this.sortby= '';
+    if(this.clicked1 === true){
+      if(this.databaseOrder ===''){
+        this.databaseOrder = 'WHERE idcathegory = 1';
       }
       else{
-        this.heart = false;
+        this.databaseOrder = this.databaseOrder +' OR idcathegory = 1';
       }
-    }, (error: any) => {
+    }
+    if(this.clicked2 === true){
+      if(this.databaseOrder ===''){
+        this.databaseOrder = 'WHERE idcathegory = 2';
+      }
+      else{
+        this.databaseOrder = this.databaseOrder +' OR idcathegory = 2';
+      }
+    }
+    if(this.clicked3 === true){
+      if(this.databaseOrder ===''){
+        this.databaseOrder = 'WHERE idcathegory = 3';
+      }
+      else{
+        this.databaseOrder = this.databaseOrder +' OR idcathegory = 3';
+      }
+    }
+    if(this.clicked4 === true){
+      if(this.databaseOrder ===''){
+        this.databaseOrder = 'WHERE idcathegory = 4';
+      }
+      else{
+        this.databaseOrder = this.databaseOrder +' OR idcathegory = 4';
+      }
+    }
+    if(this.clicked5 === true){
+      if(this.databaseOrder ===''){
+        this.databaseOrder = 'WHERE idcathegory = 5';
+      }
+      else{
+        this.databaseOrder = this.databaseOrder +' OR idcathegory = 5';
+      }
+    }
+    if(this.clicked6 === true){
+      if(this.databaseOrder ===''){
+        this.databaseOrder = 'WHERE idcathegory = 6';
+      }
+      else{
+        this.databaseOrder = this.databaseOrder +' OR idcathegory = 6';
+      }
+    }
+    // jetslize je zakliknuta nejaka z obtiznosti
+    if(this.clickedD1 === true || this.clickedD2 === true || this.clickedD3 === true){
+      // je to 1
+      if(this.clickedD1 === true){
+        if(this.databaseOrder ===''){
+          this.databaseOrder = ' WHERE obtiznost = 1 ';
+        }
+        else if(this.clickedD3===true){
+          this.obtiznost = ' AND (obtiznost = 1 OR obtiznost = 3) ';
+        }
+        else if(this.clickedD2===true){
+          this.obtiznost = ' AND (obtiznost = 1 OR obtiznost = 2) ';
+        }
+        else{
+          this.obtiznost = ' AND obtiznost = 1 ';
+        }
+      }
+      if(this.clickedD2 === true){
+        if(this.databaseOrder ===''){
+          this.databaseOrder = ' WHERE obtiznost = 2 ';
+        }
+        else if(this.clickedD3===true){
+          this.obtiznost = ' AND (obtiznost = 2 OR obtiznost = 3) ';
+        }
+        else if(this.clickedD1===true){
+          this.obtiznost = ' AND (obtiznost = 2 OR obtiznost = 1) ';
+        }
+        else{
+          this.obtiznost = ' AND obtiznost = 2 ';
+        }
+      }
+      if(this.clickedD3 === true){
+        if(this.databaseOrder ===''){
+          this.databaseOrder = ' WHERE obtiznost = 3 ';
+        }
+        else if(this.clickedD2===true && this.clickedD1===true){
+          this.obtiznost = ' AND (obtiznost = 1 OR obtiznost = 3 OR obtiznost = 2) ';
+        }
+        else if(this.clickedD1===true){
+          this.obtiznost = ' AND (obtiznost = 1 OR obtiznost = 3) ';
+        }
+        else if(this.clickedD2===true){
+          this.obtiznost = ' AND (obtiznost = 3 OR obtiznost = 2) ';
+        }
+        else{
+          this.obtiznost = ' AND obtiznost = 3 ';
+        }
+      }
+      this.sortby = this.databaseOrder.replace('WHERE', 'WHERE (');
+      this.sortby = this.sortby + ') ';
+      this.databaseOrder =  this.sortby + this.obtiznost ;
+    }
+    console.log(this.databaseOrder);
+    // eslint-disable-next-line no-underscore-dangle
+    this._apiService.getReceptyByCathegory(this.databaseOrder).subscribe((res: any) => {
+      console.log('setridene podle kategorie ', res);
+      //console.log(this.sortby);
+      this.recepty = res;
+    }, (error: any) =>{
       console.log('ERROR ===', error);
     });
   }
-
 }

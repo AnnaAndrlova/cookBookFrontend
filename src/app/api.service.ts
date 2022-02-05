@@ -27,6 +27,9 @@ export class ApiService {
   getRecepty(){
     return this.http.get('http://localhost/php/kucharkav2/backend/getRecept.php');
   }
+  getReceptyByCathegory(databaseOrder){
+    return this.http.get('http://localhost/php/kucharkav2/backend/getReceptByCathegory.php?databaseOrder='+databaseOrder);
+  }
   deleteRecept(id){
     return this.http.delete('http://localhost/php/kucharkav2/backend/delete.php?id='+id);
   }

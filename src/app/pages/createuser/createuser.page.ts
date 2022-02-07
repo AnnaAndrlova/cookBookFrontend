@@ -3,6 +3,8 @@ import {ApiService} from '../../api.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
+import * as bcrypt from 'bcryptjs';
+
 
 @Component({
   selector: 'app-createuser',
@@ -20,6 +22,7 @@ export class CreateuserPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
   badmail = 0;
+  //bcrypt = require('bcrypt');
 
   // eslint-disable-next-line max-len
   constructor(public _apiService: ApiService, public formBuilder: FormBuilder, private router: Router,
@@ -35,24 +38,30 @@ export class CreateuserPage implements OnInit {
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
     });
   }
+generateHash(heslo: string){
+const salt = bcrypt.genSaltSync(6);
+return bcrypt.hashSync(heslo, salt);
 
+}
 
   // @ts-ignore
   get errorControl() {
     return this.ionicForm.controls;
   }
 
-  addUser() {
+
+  addUser(){
     this.isSubmitted = true;
     // @ts-ignore
     if (!this.ionicForm.valid) {
       return false;
     } else {
+
       const data = {
         jmeno: this.jmeno,
         prijmeni: this.prijmeni,
         email: this.email,
-        heslo: this.heslo,
+        heslo: this.generateHash(this.heslo)
       };
       // získám si z databáze všechny maily a porovnám je se zadaným mailem
       // eslint-disable-next-line no-underscore-dangle

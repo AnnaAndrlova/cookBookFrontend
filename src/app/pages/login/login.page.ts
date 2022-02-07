@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
 import {IdServiceService} from '../../id-service.service';
 import { Storage } from '@capacitor/storage';
+import * as bcrypt from 'bcryptjs';
 
 
 @Component({
@@ -21,8 +22,11 @@ export class LoginPage implements OnInit {
   userid: string;
 
   // eslint-disable-next-line max-len
-  constructor(private _apiService: ApiService, private router: Router, public toastController: ToastController) {}
+  constructor(private _apiService: ApiService, private router: Router, public toastController: ToastController) {console.log(this.compareIt('anickaa', 'a$2a$06$Kn8VoiWbz46Y1gzqb/6hrOmERFVhqnKdwmLFo3wc210Otb.E21q3G' ));}
   ngOnInit() {
+  }
+  async compareIt(password, hashedPassword) {
+    return bcrypt.compareSync(password, hashedPassword);
   }
   login(email) {
   // ziskam si z databaze email a heslo
@@ -43,7 +47,7 @@ export class LoginPage implements OnInit {
       }
       if (res.length !== 0) {
         const login = res[0];
-        if ((this.heslo === login.heslo) && (this.email === login.email)) {
+        if ((await this.compareIt(this.heslo, login.heslo ) === true) && (this.email === login.email)) {
           console.log('přihlášení proběhlo úspěšně');
           this.router.navigateByUrl('/tabs/tab4');
           this.id = login.id;

@@ -21,6 +21,17 @@
       <span *ngIf="isSubmitted && errorControl.kategorie.errors?.required" class="error ion-padding">
     Vyplňte kategorii receptu</span>
     </ion-item>
+    <!--nárocnost -->
+    <ion-item class="ion-padding-top">
+      <ion-label>Náročnost</ion-label>
+      <ion-select interface="popover" [(ngModel)]="obtiznost" formControlName="obtiznost">
+        <ion-select-option value="1">Lehké</ion-select-option>
+        <ion-select-option value="2">Náročnější</ion-select-option>
+        <ion-select-option value="3">Obtížné</ion-select-option>
+      </ion-select>
+      <span *ngIf="isSubmitted && errorControl.obtiznost.errors?.required" class="error ion-padding">
+    Vyplňte náročnost receptu</span>
+    </ion-item>
     <ion-item>
       <ion-label position="floating">nazev</ion-label>
       <ion-input [(ngModel)]="nazev" type="text" formControlName="nazev"></ion-input>

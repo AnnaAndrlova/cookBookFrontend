@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit {
+  obtiznost: any;
   kategorie: any;
   nazev: any;
   popisek: any;
@@ -27,6 +28,7 @@ export class Tab2Page implements OnInit {
 
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
+      obtiznost: ['', [Validators.required]],
       kategorie: ['', [Validators.required]],
       nazev: ['', [Validators.required]],
       popisek: ['', [Validators.required]],
@@ -58,6 +60,7 @@ export class Tab2Page implements OnInit {
         hlavniObrazek: this.hlavniObrazek,
         autorid: this.autorid,
         kategorie: this.kategorie,
+        obtiznost: this.obtiznost
 
         //hlavniObrazek: null,
       };
@@ -71,6 +74,7 @@ export class Tab2Page implements OnInit {
         this.hlavniObrazek = '';
         this.autorid = '';
         this.kategorie ='';
+        this.obtiznost = '';
         this.router.navigateByUrl('/tabs/tab1');
         this.isSubmitted = false;
         alert('SUCCESS');

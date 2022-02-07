@@ -10,33 +10,33 @@
   <h6 class="ion-padding-start">Třídit podle druhu</h6>
   <div class="ion-padding-start">
     <ion-button (click)="sortby1()" size="small" fill="outline" *ngIf="!clicked1">Snídaně</ion-button>
-    <ion-button (click)="sortby1()" size="small" *ngIf="clicked1">Snídaně</ion-button>
+    <ion-button (click)="sortby1()" size="small" class="fill" *ngIf="clicked1">Snídaně</ion-button>
 
     <ion-button (click)="sortby2()" size="small" fill="outline" *ngIf="!clicked2">Oběd</ion-button>
-    <ion-button (click)="sortby2()" size="small" *ngIf="clicked2">Oběd</ion-button>
+    <ion-button (click)="sortby2()" size="small" class="fill" *ngIf="clicked2">Oběd</ion-button>
 
     <ion-button (click)="sortby3()" size="small" fill="outline" *ngIf="!clicked3">Večeře</ion-button>
-    <ion-button (click)="sortby3()" size="small" *ngIf="clicked3">Večeře</ion-button>
+    <ion-button (click)="sortby3()" size="small" class="fill" *ngIf="clicked3">Večeře</ion-button>
 
     <ion-button (click)="sortby4()" size="small" fill="outline" *ngIf="!clicked4">Svačina</ion-button>
-    <ion-button (click)="sortby4()" size="small" *ngIf="clicked4">Svačina</ion-button>
+    <ion-button (click)="sortby4()" size="small" class="fill" *ngIf="clicked4">Svačina</ion-button>
 
     <ion-button (click)="sortby5()" size="small" fill="outline" *ngIf="!clicked5">Drink</ion-button>
-    <ion-button (click)="sortby5()" size="small" *ngIf="clicked5">Drink</ion-button>
+    <ion-button (click)="sortby5()" size="small" class="fill" *ngIf="clicked5">Drink</ion-button>
 
     <ion-button (click)="sortby6()" size="small" fill="outline" *ngIf="!clicked6">Polévka</ion-button>
-    <ion-button (click)="sortby6()" size="small" *ngIf="clicked6">Polévka</ion-button>
+    <ion-button (click)="sortby6()" size="small" class="fill" *ngIf="clicked6">Polévka</ion-button>
   </div>
   <h6 class="ion-padding-start">Třídit podle obtížnosti</h6>
   <div class="ion-padding-start">
     <ion-button (click)="difficulty1()" size="small" fill="outline" *ngIf="!clickedD1">Lehké</ion-button>
-    <ion-button (click)="difficulty1()" size="small" *ngIf="clickedD1">Lehké</ion-button>
+    <ion-button (click)="difficulty1()" size="small" class="fill" *ngIf="clickedD1">Lehké</ion-button>
 
     <ion-button (click)="difficulty2()" size="small" fill="outline" *ngIf="!clickedD2">Střední</ion-button>
-    <ion-button (click)="difficulty2()" size="small" *ngIf="clickedD2">Střední</ion-button>
+    <ion-button (click)="difficulty2()" size="small" class="fill" *ngIf="clickedD2">Střední</ion-button>
 
     <ion-button (click)="difficulty3()" size="small" fill="outline" *ngIf="!clickedD3">Těžké</ion-button>
-    <ion-button (click)="difficulty3()" size="small" *ngIf="clickedD3">Těžké</ion-button>
+    <ion-button (click)="difficulty3()" size="small" class="fill" *ngIf="clickedD3">Těžké</ion-button>
   </div>
 
   <ion-card *ngFor="let recept of recepty" [routerLink]="['/detailpage/', recept.id]" class="ion-padding">

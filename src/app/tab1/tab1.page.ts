@@ -91,6 +91,7 @@ export class Tab1Page {
     //získám recepty
     this.databaseOrder= '';
     this.sortby= '';
+    this.obtiznost = '';
     if(this.clicked1 === true){
       if(this.databaseOrder ===''){
         this.databaseOrder = 'WHERE idcathegory = 1';
@@ -143,8 +144,8 @@ export class Tab1Page {
     if(this.clickedD1 === true || this.clickedD2 === true || this.clickedD3 === true){
       // je to 1
       if(this.clickedD1 === true){
-        if(this.databaseOrder ===''){
-          this.databaseOrder = ' WHERE obtiznost = 1 ';
+        if(this.databaseOrder ==='' && this.obtiznost ===''){
+          this.obtiznost = ' WHERE obtiznost = 1 ';
         }
         else if(this.clickedD3===true){
           this.obtiznost = ' AND (obtiznost = 1 OR obtiznost = 3) ';
@@ -157,8 +158,8 @@ export class Tab1Page {
         }
       }
       if(this.clickedD2 === true){
-        if(this.databaseOrder ===''){
-          this.databaseOrder = ' WHERE obtiznost = 2 ';
+        if(this.databaseOrder ==='' && this.obtiznost ===''){
+          this.obtiznost = ' WHERE obtiznost = 2 ';
         }
         else if(this.clickedD3===true){
           this.obtiznost = ' AND (obtiznost = 2 OR obtiznost = 3) ';
@@ -171,8 +172,8 @@ export class Tab1Page {
         }
       }
       if(this.clickedD3 === true){
-        if(this.databaseOrder ===''){
-          this.databaseOrder = ' WHERE obtiznost = 3 ';
+        if(this.databaseOrder ==='' && this.obtiznost ===''){
+          this.obtiznost = ' WHERE obtiznost = 3 ';
         }
         else if(this.clickedD2===true && this.clickedD1===true){
           this.obtiznost = ' AND (obtiznost = 1 OR obtiznost = 3 OR obtiznost = 2) ';
@@ -187,11 +188,25 @@ export class Tab1Page {
           this.obtiznost = ' AND obtiznost = 3 ';
         }
       }
-      this.sortby = this.databaseOrder.replace('WHERE', 'WHERE (');
-      this.sortby = this.sortby + ') ';
-      this.databaseOrder =  this.sortby + this.obtiznost ;
+      /*if(this.sortby!==''){
+        this.sortby = this.databaseOrder.replace('WHERE', 'WHERE (');
+        this.sortby = this.sortby + ') ';
+        this.databaseOrder =  this.sortby + this.obtiznost ;
+      }
+      else{
+        this.databaseOrder = this.obtiznost;
+      }*/
+      if(this.databaseOrder===''){
+        this.databaseOrder = this.obtiznost;
+      }
+      else{
+        this.sortby = this.databaseOrder.replace('WHERE', 'WHERE (');
+        this.sortby = this.sortby + ') ';
+        this.databaseOrder =  this.sortby + this.obtiznost ;
+      }
     }
-    console.log(this.databaseOrder);
+
+    console.log('tohle je final '+this.databaseOrder);
     // eslint-disable-next-line no-underscore-dangle
     this._apiService.getReceptyByCathegory(this.databaseOrder).subscribe((res: any) => {
       console.log('setridene podle kategorie ', res);

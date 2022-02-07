@@ -35,48 +35,53 @@
     <ion-item>
       <ion-label position="floating">nazev</ion-label>
       <ion-input [(ngModel)]="nazev" type="text" formControlName="nazev"></ion-input>
-    </ion-item>
-    <!--Název validace -->
-    <span *ngIf="isSubmitted && errorControl.nazev.errors?.required" class="error ion-padding">
+      <!--Název validace -->
+      <span *ngIf="isSubmitted && errorControl.nazev.errors?.required" class="error">
     Vyplňte název receptu</span>
+    </ion-item>
+
 
 
     <ion-item>
       <ion-label position="floating">Popisek</ion-label>
       <ion-input [(ngModel)]="popisek" type="text" formControlName="popisek"></ion-input>
-    </ion-item>
-    <!--Popisek validace -->
-    <span *ngIf="isSubmitted && errorControl.popisek.errors?.required" class="error ion-padding">
+      <!--Popisek validace -->
+      <span *ngIf="isSubmitted && errorControl.popisek.errors?.required" class="error">
     Vyplňte popisek receptu</span>
+    </ion-item>
+
 
 
     <ion-item>
       <ion-label position="floating">postup</ion-label>
       <ion-textarea [(ngModel)]="postup" type="text" rows="20" cols="20" formControlName="postup"></ion-textarea>
-    </ion-item>
-    <!--Postup validace -->
-    <span *ngIf="isSubmitted && errorControl.postup.errors?.required" class="error ion-padding">
+      <!--Postup validace -->
+      <span *ngIf="isSubmitted && errorControl.postup.errors?.required" class="error">
     Vyplňte postup receptu</span>
+    </ion-item>
+
 
 
 
     <ion-item>
       <ion-label position="floating">ingredience</ion-label>
       <ion-textarea [(ngModel)]="ingredience" type="text" rows="10" cols="10" formControlName="ingredience"></ion-textarea>
-    </ion-item>
-    <!--ingredience validace -->
-    <span *ngIf="isSubmitted && errorControl.ingredience.errors?.required" class="error ion-padding">
+      <!--ingredience validace -->
+      <span *ngIf="isSubmitted && errorControl.ingredience.errors?.required" class="error">
     Vyplňte ingredience receptu</span>
+    </ion-item>
+
 
 
 
     <ion-item>
       <ion-label position="floating">Obrázek</ion-label>
       <ion-input type="text" [(ngModel)]="hlavniObrazek" formControlName="hlavniobrazek" ></ion-input>
+      <span *ngIf="isSubmitted && errorControl.hlavniobrazek.errors?.required" class="error">
+    Přidejte obrázek receptu</span>
     </ion-item>
     <!--obrazek validace -->
-    <span *ngIf="isSubmitted && errorControl.hlavniobrazek.errors?.required" class="error ion-padding">
-    Přidejte obrazek receptu</span>
+
     <ion-row>
       <ion-col>
         <ion-button type="submit" shape="block" expand="block">Add Recept</ion-button>

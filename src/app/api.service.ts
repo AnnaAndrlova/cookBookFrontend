@@ -48,6 +48,9 @@ export class ApiService {
   getPassword(email){
     return this.http.get('http://localhost/php/kucharkav2/backend/user/getPassword.php?email='+email);
   }
+  getEmail(){
+    return this.http.get('http://localhost/php/kucharkav2/backend/user/getEmail.php');
+  }
   getUserRecepty(autorid){
     return this.http.get('http://localhost/php/kucharkav2/backend/getUserRecepty.php?autorid='+autorid);
   }

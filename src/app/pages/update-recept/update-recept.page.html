@@ -5,34 +5,82 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<ion-list lines="full">
+<ion-content> <form (ngSubmit)="updateRecept()" [formGroup]="ionicForm" novalidate>
+  <ion-item class="ion-padding-top">
+    <ion-label>Kategorie</ion-label>
+    <ion-select interface="popover" [(ngModel)]="kategorie" formControlName="kategorie">
+      <ion-select-option value="1">Snídaně</ion-select-option>
+      <ion-select-option value="2">Oběd</ion-select-option>
+      <ion-select-option value="3">Večeře</ion-select-option>
+      <ion-select-option value="4">Svačina</ion-select-option>
+      <ion-select-option value="5">Drink</ion-select-option>
+      <ion-select-option value="6">Polévka</ion-select-option>
+    </ion-select>
+    <span *ngIf="isSubmitted && errorControl.kategorie.errors?.required" class="error ion-padding">
+    Vyplňte kategorii receptu</span>
+  </ion-item>
+  <!--nárocnost -->
+  <ion-item class="ion-padding-top">
+    <ion-label>Náročnost</ion-label>
+    <ion-select interface="popover" [(ngModel)]="obtiznost" formControlName="obtiznost">
+      <ion-select-option value="1">Lehké</ion-select-option>
+      <ion-select-option value="2">Náročnější</ion-select-option>
+      <ion-select-option value="3">Obtížné</ion-select-option>
+    </ion-select>
+    <span *ngIf="isSubmitted && errorControl.obtiznost.errors?.required" class="error ion-padding">
+    Vyplňte náročnost receptu</span>
+  </ion-item>
   <ion-item>
     <ion-label position="floating">nazev</ion-label>
-    <ion-input [(ngModel)]="nazev" type="text"></ion-input>
+    <ion-input [(ngModel)]="nazev" type="text" formControlName="nazev"></ion-input>
   </ion-item>
+  <!--Název validace -->
+  <span *ngIf="isSubmitted && errorControl.nazev.errors?.required" class="error ion-padding">
+    Vyplňte název receptu</span>
+
+
   <ion-item>
     <ion-label position="floating">Popisek</ion-label>
-    <ion-input [(ngModel)]="popisek" type="text"></ion-input>
+    <ion-input [(ngModel)]="popisek" type="text" formControlName="popisek"></ion-input>
   </ion-item>
+  <!--Popisek validace -->
+  <span *ngIf="isSubmitted && errorControl.popisek.errors?.required" class="error ion-padding">
+    Vyplňte popisek receptu</span>
+
+
   <ion-item>
     <ion-label position="floating">postup</ion-label>
-    <ion-textarea [(ngModel)]="postup" type="text" rows="20" cols="20"></ion-textarea>
+    <ion-textarea [(ngModel)]="postup" type="text" rows="20" cols="20" formControlName="postup"></ion-textarea>
   </ion-item>
+  <!--Postup validace -->
+  <span *ngIf="isSubmitted && errorControl.postup.errors?.required" class="error ion-padding">
+    Vyplňte postup receptu</span>
+
+
+
   <ion-item>
     <ion-label position="floating">ingredience</ion-label>
-    <ion-textarea [(ngModel)]="ingredience" type="text" rows="10" cols="10"></ion-textarea>
+    <ion-textarea [(ngModel)]="ingredience" type="text" rows="10" cols="10" formControlName="ingredience"></ion-textarea>
   </ion-item>
+  <!--ingredience validace -->
+  <span *ngIf="isSubmitted && errorControl.ingredience.errors?.required" class="error ion-padding">
+    Vyplňte ingredience receptu</span>
+
+
+
   <ion-item>
-    <ion-label position="floating">hlobrazek</ion-label>
-    <ion-input [(ngModel)]="hlavniObrazek" type="text"></ion-input>
+    <ion-label position="floating">Obrázek</ion-label>
+    <ion-input type="text" [(ngModel)]="hlavniObrazek" formControlName="hlavniobrazek" ></ion-input>
   </ion-item>
+  <!--obrazek validace -->
+  <span *ngIf="isSubmitted && errorControl.hlavniobrazek.errors?.required" class="error ion-padding">
+    Přidejte obrazek receptu</span>
   <ion-row>
     <ion-col>
-      <ion-button type="button" (click)="updateRecept()" shape="block" expand="block">Upravit Recept</ion-button>
+      <ion-button type="submit" shape="block" expand="block">Add Recept</ion-button>
     </ion-col>
   </ion-row>
-</ion-list>
+</form>
 
 
 

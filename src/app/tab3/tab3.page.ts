@@ -22,6 +22,7 @@ export class Tab3Page {
   iduser: any;
   i = 0;
   polereceptu: any = [];
+  empty = false;
 
   constructor(public _apiService: ApiService) {
     this.getFavouriteRecepty();
@@ -38,21 +39,27 @@ export class Tab3Page {
       console.log('SUCCESS ===', res);
       // a uložím do proměnné res a následně do recepty
       this.recepty = res;
-      this.pocetreceptu = this.recepty.length;
-      for (this.i = 0; this.i < this.pocetreceptu; this.i++) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        this.polereceptu.push(this.recepty[this.i].idrecept);
+      if(this.recepty.length === 0){
+        console.log('nic tu neni');
+        this.empty = true;
       }
-      console.log('pole ',this.polereceptu);
-      // TODO dořešit zbytek a přesunout do success
-      // proměnnou poslu do getFavouriteRecept
-      // eslint-disable-next-line no-underscore-dangle
-      this._apiService.getFavouriteRecept(this.polereceptu).subscribe((ree: any) => {
-        console.log('SUCCESS ===', ree);
-        this.oblibenerecepty = ree;
-      }, (error: any) => {
-        console.log('ERROR ===', error);
-      });
+      else{
+        this.empty = false;
+        this.pocetreceptu = this.recepty.length;
+        for (this.i = 0; this.i < this.pocetreceptu; this.i++) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          this.polereceptu.push(this.recepty[this.i].idrecept);
+        }
+        console.log('pole ',this.polereceptu);
+        // proměnnou poslu do getFavouriteRecept
+        // eslint-disable-next-line no-underscore-dangle
+        this._apiService.getFavouriteRecept(this.polereceptu).subscribe((ree: any) => {
+          console.log('SUCCESS ===', ree);
+          this.oblibenerecepty = ree;
+        }, (error: any) => {
+          console.log('ERROR ===', error);
+        });
+      }
     }, (error: any) => {
       console.log('ERROR ===', error);
     });

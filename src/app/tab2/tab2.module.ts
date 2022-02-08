@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
 import { Tab2PageRoutingModule } from './tab2-routing.module';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -15,7 +15,8 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
         FormsModule,
         ExploreContainerComponentModule,
         Tab2PageRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+      HttpClientModule
     ],
   declarations: [Tab2Page]
 })

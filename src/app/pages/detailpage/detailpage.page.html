@@ -31,10 +31,17 @@
         <div *ngIf="showData === 'ingredients'">
           <p class="ion-padding  descriptiondetail">{{ingredience}}</p>
         </div>
-        <div *ngIf="showData === 'pictures'">
-          <h3 class="ion-padding info">Autor: {{jmeno}} {{prijmeni}}</h3>
-          <h3 class="ion-padding-horizontal info">Recepty od tohoto autora</h3>
-          <ion-item lines="inset" *ngFor="let recept of receptyautora; let i=index" [routerLink]="['/detailpage/', recept.id]">
+        <div *ngIf="showData === 'pictures'" class="ion-padding-start">
+          <div class="ion-padding-top"><h3 class="ion-padding-top info element1">Autor:</h3>
+            <p class="element2 ion-no-padding ion-no-margin">{{jmeno}} {{prijmeni}} </p></div>
+          <div class="ion-no-padding ion-no-margin"><h3 class="info element1">Kategorie:</h3>
+            <p class="element2 ion-no-padding ion-no-margin">{{name}}</p></div>
+          <div><h3 class="info element1">Obtížnost:</h3>
+            <p *ngIf="obtiznost==='1'" class="element2 ion-no-padding ion-no-margin">Lehká</p>
+            <p *ngIf="obtiznost==='2'" class="element2 ion-no-padding ion-no-margin">Pokročilá</p>
+            <p *ngIf="obtiznost==='3'" class="element2 ion-no-padding ion-no-margin">Náročná</p></div>
+          <h3 class="info ion-no-padding ion-no-margin element1">Recepty od tohoto autora</h3>
+          <ion-item  class="ion-padding-end" lines="inset" *ngFor="let recept of receptyautora; let i=index" [routerLink]="['/detailpage/', recept.id]">
             <ion-label>
               <h5>{{i+1}}. {{recept.nazev}}</h5>
             </ion-label>
@@ -43,6 +50,7 @@
       </div>
     </div>
   </div>
+  <br>
 </ion-content>
 
 

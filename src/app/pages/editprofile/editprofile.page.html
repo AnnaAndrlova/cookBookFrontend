@@ -11,7 +11,13 @@
     <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" alt="avatar">
 
   </ion-avatar>
-  <p class="ion-text-center zmena" >Změnit profilovou fotku</p>
+
+    <ion-input type="file" class="file" aria-label="File browser example" [(ngModel)]="avatar"
+               accept="image/png, image/jpg"
+               (change)="onFileSelected($event)"></ion-input>
+    <p class="ion-text-center zmena" *ngIf="!nahrano">Změnit profilovou fotku</p>
+    <p class="ion-text-center zmena" *ngIf="nahrano">Obrázek byl nahrán</p>
+
   <h1 class="ion-text-center">{{jmeno}} {{prijmeni}}</h1>
   <p class="ion-text-center pismo ion-no-margin ion-margin-bottom">{{email}}</p>
   <ion-list lines="full">

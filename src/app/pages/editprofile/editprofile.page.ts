@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../api.service';
-import {Storage} from "@capacitor/storage";
+import {Storage} from '@capacitor/storage';
 
 @Component({
   selector: 'app-editprofile',
@@ -14,6 +14,10 @@ export class EditprofilePage implements OnInit {
   prijmeni: any;
   email: any;
   heslo: any;
+  avatar: any;
+  selectedFile = null;
+  nahrano = false;
+
 
 
   constructor(private route: ActivatedRoute,
@@ -26,6 +30,10 @@ export class EditprofilePage implements OnInit {
       console.log(this.id);
       this.getUser(this.id);
     });
+  }
+  onFileSelected(event) {
+    this.selectedFile = event.target.files[0].name;
+    this.nahrano = true;
   }
 
   ngOnInit() {
@@ -41,6 +49,7 @@ export class EditprofilePage implements OnInit {
       this.prijmeni = user.prijmeni;
       this.email = user.email;
       this.heslo = user.heslo;
+      this.avatar = user.avatar;
     }, (error: any) => {
       console.log('ERROR', error);
     });
@@ -53,6 +62,7 @@ export class EditprofilePage implements OnInit {
       prijmeni: this.prijmeni,
       email: this.email,
       heslo: this.heslo,
+      avatar: this.selectedFile
     };
     // eslint-disable-next-line no-underscore-dangle
     this._apiService.updateUser(this.id, data).subscribe((res: any) => {

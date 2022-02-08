@@ -11,7 +11,9 @@ import {Storage} from '@capacitor/storage';
 export class DetailpagePage implements OnInit {
   iduserandidrecept: any;
   i = 0;
+  name: any;
   idrecept: any;
+  obtiznost: any;
   iduser: any;
   heart = false;
   recept: any;
@@ -52,13 +54,15 @@ export class DetailpagePage implements OnInit {
       this.obrazky= recept.obrazky;
       this.hlavniObrazek= recept.hlavniObrazek;
       this.autorid = recept.autorid;
+      this.obtiznost = recept.obtiznost;
+      this.name = recept.name;
 
       // získám dalsí recepty auora tohoto receptu
       console.log('toto je id autora : ' + this.autorid);
       // eslint-disable-next-line no-underscore-dangle
-      this._apiService.getUserRecepty(this.autorid).subscribe(async (res: any) => {
-        console.log('SUCCESS, toto jsou recepty tohoto autora: ', res);
-        this.receptyautora = res;
+      this._apiService.getUserRecepty(this.autorid).subscribe(async (ree: any) => {
+        console.log('SUCCESS, toto jsou recepty tohoto autora: ', ree);
+        this.receptyautora = ree;
       }, (err: any) => {
         console.log('ERROR', err);
       });

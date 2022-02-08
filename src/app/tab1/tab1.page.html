@@ -56,7 +56,9 @@
         </ion-col>
         <ion-col>
           <div class="ion-text-end">
-            #{{recept.name}}, {{recept.obtiznost}}
+           <span *ngIf="recept.obtiznost==='1'" class="green"># {{recept.name}}</span>
+           <span *ngIf="recept.obtiznost==='2'" class="orange"># {{recept.name}}</span>
+           <span *ngIf="recept.obtiznost==='3'" class="red"># {{recept.name}}</span>
           </div>
         </ion-col>
       </ion-row>

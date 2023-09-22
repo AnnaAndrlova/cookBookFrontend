@@ -23,9 +23,11 @@ export class Tab4Page implements OnInit {
   jmeno: any;
   prijmeni: any;
   email: any;
+  avatar: any;
 
-  constructor(public _apiService: ApiService, private route: ActivatedRoute, private idService: IdServiceService,
-              private router: Router) {this.getUserRecepty(this.autorid);this.getUser(this.id);}
+  constructor(public _apiService: ApiService,
+              private router: Router) {this.getUserRecepty(this.autorid);
+    this.getUser(this.id);}
   deleteRecept(id) {
     // eslint-disable-next-line no-underscore-dangle
     this._apiService.deleteRecept(id).subscribe((res: any) => {
@@ -46,6 +48,8 @@ export class Tab4Page implements OnInit {
       this.jmeno = user.jmeno;
       this.prijmeni = user.prijmeni;
       this.email = user.email;
+      // eslint-disable-next-line no-underscore-dangle
+      this.avatar = this._apiService.getUrl('/' + user.avatar);
     }, (error: any) => {
       console.log('ERROR', error);
     });
@@ -67,6 +71,16 @@ export class Tab4Page implements OnInit {
       console.log('ERROR', err);
     });
 
+  }
+  doRefresh(event) {
+    //console.log('Begin async operation');
+    window.location.reload();
+    this.getUser(this.id);
+    this.getUserRecepty(this.autorid);
+    setTimeout(() => {
+      //console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
   async logout() {
     await Storage.set({

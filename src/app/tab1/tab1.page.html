@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <h6 class="ion-padding-start">Třídit podle druhu</h6>
   <div class="ion-padding-start">
     <ion-button (click)="sortby1()" size="small" fill="outline" *ngIf="!clicked1">Snídaně</ion-button>
@@ -41,11 +44,8 @@
 
   <ion-card *ngFor="let recept of recepty" [routerLink]="['/detailpage/', recept.id]" class="ion-padding">
     <img
-      src="https://images.unsplash.com/photo-1618902515708-0972a312344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVuf
-      DB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      src="{{apiService.getUrl('/' + recept.hlavniObrazek)}}"
       alt="jidlo" class="rounded ion-margin-bottom">
-    <!--<img
-      src="{{recipe.image}}" alt="jidlo" jsem bobeeeek>-->
     <ion-grid>
       <ion-row>
         <ion-col>

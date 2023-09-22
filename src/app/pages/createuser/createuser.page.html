@@ -6,7 +6,6 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <form (ngSubmit)="addUser()" [formGroup]="ionicForm" novalidate>
-
     <!--Jméno -->
     <ion-item class="ion-margin user" color="light">
       <ion-input [(ngModel)]="jmeno" formControlName="name" placeholder="Jméno" type="text"></ion-input>

@@ -7,10 +7,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="!empty">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card *ngFor="let recept of oblibenerecepty" [routerLink]="['/detailpage/', recept.id]" class="ion-padding">
     <img
-      src="https://images.unsplash.com/photo-1618902515708-0972a312344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVuf
-      DB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      src="{{_apiService.getUrl('/' + recept.hlavniObrazek)}}"
       alt="jidlo" class="rounded ion-margin-bottom">
     <!--<img
       src="{{recipe.image}}" alt="jidlo" jsem bobeeeek>-->
@@ -32,6 +34,9 @@
   </ion-card>
 </ion-content>
 <ion-content [fullscreen]="true" *ngIf="empty" class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
  <h5 class=" ion-text-center">Zatím nemáme žádné oblíbené recepty</h5>
   <img src="https://images.unsplash.com/photo-1611003229235-fb5748510459?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80">
 </ion-content>

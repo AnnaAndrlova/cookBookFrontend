@@ -72,8 +72,6 @@ return bcrypt.hashSync(heslo, salt);
           if (this.email === res[i].email) {
             this.badmail = 1;
             console.log('Mail existuje!!!!!!!');
-          } else {
-            this.badmail = 0;
           }
         }
         //pokud mail existuje, vypis to

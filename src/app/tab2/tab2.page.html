@@ -74,17 +74,16 @@
 
     <ion-item>
       <ion-input type="file" class="file" aria-label="File browser example" [(ngModel)]="hlavniObrazek"
-                 formControlName="hlavniobrazek" accept="image/png, image/jpg"
+                 formControlName="hlavniobrazek" accept="image/png, image/jpg, image/jpeg"
                  (change)="onFileSelected($event)"></ion-input>
-      <span *ngIf="!nahrano"  class="file-custom">Nahrát obrázek</span>
-      <span *ngIf="nahrano"  class="file-custom">Obrázek byl nahrán</span>
+      <span *ngIf="!nahrano"  class="file-custom">Vybrat obrázek</span>
+      <span *ngIf="nahrano"  class="file-custom">Obrázek byl vybrán</span>
       <span *ngIf="isSubmitted && errorControl.hlavniobrazek.errors?.required" class="error">
     Přidejte obrázek receptu</span>
     </ion-item>
     <div id="display_image">
 
     </div>
-    <!--obrazek validace -->
 
     <ion-row>
       <ion-col>

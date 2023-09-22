@@ -27,6 +27,14 @@ export class Tab3Page {
   constructor(public _apiService: ApiService) {
     this.getFavouriteRecepty();
   }
+  doRefresh(event) {
+    //console.log('Begin async operation');
+    window.location.reload();
+    setTimeout(() => {
+      //console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 
   async getFavouriteRecepty() {
     //získám id uživatele, které pak použiju na získáni id obl.receptů s ním spojených

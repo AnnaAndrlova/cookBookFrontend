@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ApiService} from '../api.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Storage} from '@capacitor/storage';
 
 
 @Component({
@@ -26,32 +25,34 @@ export class Tab1Page {
   nazev: any;
   popisek: any;
   postup: any;
-  ingredience: any;
-  obrazky: any;
-  hlavniObrazek: any;
-  recepty: any = [];
+  recepty: any[] = [];
   autorid = null;
   iduser: any;
   heart = false;
   i = 0;
   id: any;
 
-
-
-
-  constructor( public _apiService: ApiService,private route: ActivatedRoute,
-               private router: Router) {
+  constructor(public apiService: ApiService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.getRecepty();
   }
 
-
-  getRecepty(){
+  doRefresh(event) {
+    //console.log('Begin async operation');
+    //window.location.reload();
+    this.getRecepty();
+    setTimeout(() => {
+      //console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+  getRecepty() {
     //získám všechny recepty
-    // eslint-disable-next-line no-underscore-dangle
-    this._apiService.getRecepty().subscribe((res: any) => {
+    this.apiService.getRecepty().subscribe((res: any) => {
       console.log('SUCCESS ===', res);
       this.recepty = res;
-    }, (error: any) =>{
+    }, (error: any) => {
       console.log('ERROR ===', error);
     });
   }
@@ -144,6 +145,7 @@ export class Tab1Page {
     if(this.clickedD1 === true || this.clickedD2 === true || this.clickedD3 === true){
       // je to 1
       if(this.clickedD1 === true){
+        // není žádný příkaz a ani žádná obtžnost
         if(this.databaseOrder ==='' && this.obtiznost ===''){
           this.obtiznost = ' WHERE obtiznost = 1 ';
         }
@@ -208,11 +210,11 @@ export class Tab1Page {
 
     console.log('tohle je final '+this.databaseOrder);
     // eslint-disable-next-line no-underscore-dangle
-    this._apiService.getReceptyByCathegory(this.databaseOrder).subscribe((res: any) => {
+    this.apiService.getReceptyByCathegory(this.databaseOrder).subscribe((res: any) => {
       console.log('setridene podle kategorie ', res);
       //console.log(this.sortby);
       this.recepty = res;
-    }, (error: any) =>{
+    }, (error: any) => {
       console.log('ERROR ===', error);
     });
   }

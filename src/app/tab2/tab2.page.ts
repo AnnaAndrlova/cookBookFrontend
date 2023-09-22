@@ -4,6 +4,7 @@ import {Storage} from '@capacitor/storage';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-tab2',
@@ -25,8 +26,10 @@ export class Tab2Page implements OnInit {
   isSubmitted = false;
   reader: any;
   uploadedImage: any;
-  selectedFile = null;
+  selectedFile: File = null;
   nahrano = false;
+  fileName = '';
+  file = '';
 
 
   constructor(public _apiService: ApiService, public formBuilder: FormBuilder, private router: Router, private http: HttpClient) {
@@ -44,16 +47,16 @@ export class Tab2Page implements OnInit {
     });
   }
 
+  getUrl(endpoint: string) {
+    return environment.apiBase + endpoint;
+  }
   // @ts-ignore
   get errorControl() {
     return this.ionicForm.controls;
   }
   onFileSelected(event) {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    this.selectedFile = event.target.files[0].name;
+    this.selectedFile = event.target.files[0];
     this.nahrano = true;
-    //return this.selectedFile;
-    //console.log(this.selectedFile);
   }
 
   async addRecept() {
@@ -71,7 +74,6 @@ export class Tab2Page implements OnInit {
         popisek: this.popisek,
         postup: this.postup,
         ingredience: this.ingredience,
-        hlavniObrazek: this.selectedFile,
         autorid: this.autorid,
         kategorie: this.kategorie,
         obtiznost: this.obtiznost
@@ -81,18 +83,24 @@ export class Tab2Page implements OnInit {
       //console.log('toto je obrazek: ' + data.hlavniObrazek);
       // eslint-disable-next-line no-underscore-dangle
       this._apiService.addRecept(data).subscribe(async (res: any) => {
-        console.log('SUCCESS ===', res);
-        this.nazev = '';
-        this.popisek = '';
-        this.postup = '';
-        this.ingredience = '';
-        this.hlavniObrazek = '';
-        this.autorid = '';
-        this.kategorie ='';
-        this.obtiznost = '';
-        this.router.navigateByUrl('/tabs/tab1');
-        this.isSubmitted = false;
-        alert('SUCCESS');
+        console.log('SUCCESS data added ===', res);
+
+        // uploaduji soubor
+        this.upload(res.data.id).subscribe(response => {
+          console.log(response);
+          this.nazev = '';
+          this.popisek = '';
+          this.postup = '';
+          this.ingredience = '';
+          this.autorid = '';
+          this.kategorie = '';
+          this.obtiznost = '';
+          this.router.navigateByUrl('/tabs/tab1');
+          this.isSubmitted = false;
+          this.nahrano = false;
+          alert('SUCCESS');
+        });
+
       }, (error: any) => {
         alert('ERROR');
 
@@ -101,6 +109,19 @@ export class Tab2Page implements OnInit {
     }
   };
 
+
+  upload(receptId: number) {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    this.nahrano = false;
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
+      const formData = new FormData();
+      formData.append('image', this.selectedFile);
+      formData.append('receipt_id', receptId.toString());
+      //return this.http.post('http://localhost/php/kucharkav2/backend/upload.php', formData);
+      return this.http.post(environment.apiBase + '/upload.php', formData);
+    }
+  }
 
   /*onUpload(){
     this.http.post('')

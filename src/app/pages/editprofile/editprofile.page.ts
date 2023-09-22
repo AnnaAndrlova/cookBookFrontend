@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../api.service';
 import {Storage} from '@capacitor/storage';
-
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 @Component({
   selector: 'app-editprofile',
   templateUrl: './editprofile.page.html',
@@ -16,13 +17,16 @@ export class EditprofilePage implements OnInit {
   heslo: any;
   avatar: any;
   selectedFile = null;
+  selectedFiles = null;
   nahrano = false;
-
+  fileName = '';
+  file = '';
 
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _apiService: ApiService,
+              public _apiService: ApiService,
+              private http: HttpClient
   ) {
 
     this.route.params.subscribe((param: any) => {
@@ -32,11 +36,18 @@ export class EditprofilePage implements OnInit {
     });
   }
   onFileSelected(event) {
-    this.selectedFile = event.target.files[0].name;
+    this.selectedFile = event.target.files[0];
+    this.selectedFiles = event.target.files[0].name;
     this.nahrano = true;
+    this.upload(this.id).subscribe(response => {
+      console.log('SUCCESS Upload');
+    });
   }
 
   ngOnInit() {
+  }
+  getUrl(endpoint: string) {
+    return environment.apiBase + endpoint;
   }
   async getUser(id) {
     const {value} = await Storage.get({key: 'id'});
@@ -62,7 +73,6 @@ export class EditprofilePage implements OnInit {
       prijmeni: this.prijmeni,
       email: this.email,
       heslo: this.heslo,
-      avatar: this.selectedFile
     };
     // eslint-disable-next-line no-underscore-dangle
     this._apiService.updateUser(this.id, data).subscribe((res: any) => {
@@ -72,5 +82,15 @@ export class EditprofilePage implements OnInit {
       console.log('ERROR', err);
     });
   }
-
+  upload(userId: number) {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    this.nahrano = false;
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
+      const formData = new FormData();
+      formData.append('image', this.selectedFile);
+      formData.append('user_id', userId.toString());
+      return this.http.post(environment.apiBase + '/user/uploadUser.php', formData);
+    }
+  }
 }

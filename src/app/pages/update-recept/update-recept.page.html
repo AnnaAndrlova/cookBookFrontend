@@ -69,12 +69,14 @@
 
 
   <ion-item>
-    <ion-label position="floating">Obrázek</ion-label>
-    <ion-input type="text" [(ngModel)]="hlavniObrazek" formControlName="hlavniobrazek" ></ion-input>
+    <ion-input type="file" class="file" aria-label="File browser example" [(ngModel)]="hlavniObrazek"
+               formControlName="hlavniobrazek" accept="image/png, image/jpg, image/jpeg"
+               (change)="onFileSelected($event)"></ion-input>
+    <p *ngIf="!nahrano"  class="file-custom">Vybrat obrázek</p>
+    <p *ngIf="nahrano"  class="file-custom">Obrázek byl vybrán</p>
+    <span *ngIf="isSubmitted && errorControl.hlavniobrazek.errors?.required" class="error">
+    Přidejte obrázek receptu</span>
   </ion-item>
-  <!--obrazek validace -->
-  <span *ngIf="isSubmitted && errorControl.hlavniobrazek.errors?.required" class="error ion-padding">
-    Přidejte obrazek receptu</span>
   <ion-row>
     <ion-col>
       <ion-button type="submit" shape="block" expand="block">Add Recept</ion-button>

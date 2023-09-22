@@ -4,16 +4,10 @@
 
 export const environment = {
   production: false,
-  firebaseConfig: {
-    apiKey: 'AIzaSyDFtzhbrd7f3vjkOs6CLeDSsPRkM04kN34',
-    authDomain: 'cookbook-24e73.firebaseapp.com',
-    databaseURL: 'https://cookbook-24e73-default-rtdb.firebaseio.com',
-    projectId: 'cookbook-24e73',
-    storageBucket: 'cookbook-24e73.appspot.com',
-    messagingSenderId: '556123221257',
-    appId: '1:556123221257:web:348b57a0d42911de3b37d8',
-    measurementId: 'G-3KSTSF584W'
-  }
+  apiBase: 'http://localhost/php/kucharkav2/backend'
+  //apiBase: 'http://192.168.0.104/php/kucharkav2/backend'
+  //apiBase: 'http://10.5.130.103/php/kucharkav2/backend'
+  //apiBase: 'http://10.5.51.246/php/kucharkav2/backend'
 };
 
 /*

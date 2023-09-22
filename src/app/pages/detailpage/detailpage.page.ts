@@ -31,7 +31,7 @@ export class DetailpagePage implements OnInit {
   receptyautora: any;
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _apiService: ApiService,) {
+              public _apiService: ApiService,) {
     this.route.params.subscribe((param: any) => {
       this.id = param.id;
       console.log(this.id);

@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
         }
       }
     }, (err: any) =>{
-      console.log('ERROR', err);
+      console.log('ERROR_', JSON.stringify(err));
     });
 
   }
